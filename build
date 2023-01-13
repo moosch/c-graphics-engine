@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -xe
+
+# Build and run engine
+gcc -Wall -Wextra -pedantic -o scene engine/**/*c engine/main.c -lglfw -lGL -lm
+
+# TODO eventually we'll have to pass in am application to load
+
+./scene
