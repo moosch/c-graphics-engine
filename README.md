@@ -1,4 +1,4 @@
-# C Graphics Engine
+# Groei - A Graphics Engine in C
 
 This is a simpe graphics engine that uses [GLFW](https://www.glfw.org/) for window management and [OpenGL](https://www.opengl.org/) for rendering to that window.
 
