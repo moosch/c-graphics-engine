@@ -3,7 +3,8 @@
 set -xe
 
 # Build and run engine
-gcc -Wall -Wextra -pedantic -o scene engine/**/*c engine/main.c -lglfw -lGL -lm
+# gcc -Wall -Wextra -pedantic -o scene engine/**/*c engine/main.c -lglfw  -lGL -lm
+gcc -Wall -Wextra -pedantic -o scene engine/**/*c engine/main.c -lglfw -lvulkan -lcglm -ldl -lX11 -lXxf86vm -lXrandr -lXi -lm
 
 # TODO eventually we'll have to pass in am application to load
 
