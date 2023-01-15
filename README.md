@@ -1,6 +1,6 @@
 # Groei - A Graphics Engine in C
 
-This is a simpe graphics engine that uses [GLFW](https://www.glfw.org/) for window management and [OpenGL](https://www.opengl.org/) for rendering to that window.
+This is a simpe graphics engine that uses [GLFW](https://www.glfw.org/) for window management and [Vulkan](https://www.vulkan.org/) for rendering to that window. Potentially I'll add [OpenGL](https://www.opengl.org/) support too.
 
 This is a learning exercise in bringing together the maths to render models onto a screen.
 
@@ -11,8 +11,11 @@ It may turn into something more, but for now, it's just that.
 If you are kinda adventurous, and would like to see it in action, you'll need the following:
 
 * [GLFW](https://www.glfw.org/)
-* [OpenGL](https://www.opengl.org/)
+* [Vulkan](https://www.vulkan.org/)
+* [Vulkan SDK](https://www.lunarg.com/vulkan-sdk/)
 * [GCC](https://gcc.gnu.org/) - though Clang or MSVC should be fine but you'd need to update the `build` script.
+* [CGLM](https://github.com/recp/cglm) - `cglm` because I'm using Linux, but GLM would be fine on another OS.
+* [OpenGL](https://www.opengl.org/)
 
 ### NOTE
 
