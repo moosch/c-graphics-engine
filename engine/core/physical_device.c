@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 #include "context.h"
 #include "queue_families.h"
 #include "swap_chain.h"

@@ -1,5 +1,3 @@
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 #include "context.h"
 
 queue_family_indices find_queue_families(VkPhysicalDevice device, VkSurfaceKHR surface) {

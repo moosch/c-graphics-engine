@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
+#include "debug.h"
+#include "../logger.h"
 #include "../definitions.h"
-#include "context.h"
 
 VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(
                                               VkDebugUtilsMessageSeverityFlagBitsEXT message_severity,
@@ -31,7 +30,7 @@ void setup_debug_messenger(GROEI_context *context) {
   // createInfo.pUserData = NULL;
 
   if (create_debug_utils_messenger_ext(context->instance, &create_info, NULL, &context->debug_messenger) != VK_SUCCESS) {
-    printf("Failed to setup debug messenger!\n");
+    GROEI_ERROR("Failed to setup debug messenger!\n");
     exit(GROEI_ERROR_DEBUG_MESSENGER_CODE);
   }
 }
@@ -51,7 +50,12 @@ VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(
     const VkDebugUtilsMessengerCallbackDataEXT *callback_data,
     void *user_data) {
 
-  printf("validation layer: %s\n", callback_data->pMessage);
+  GROEI_DEBUG("Type: %d\n", message_type);
+  GROEI_DEBUG("Severity: %d\n", message_severity);
+  if (user_data!= NULL) {
+    GROEI_DEBUG("Data %p\n", user_data);
+  }
+  GROEI_DEBUG("validation layer: %s\n", callback_data->pMessage);
 
   return VK_FALSE;
 }

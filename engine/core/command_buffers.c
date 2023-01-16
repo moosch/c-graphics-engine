@@ -7,7 +7,7 @@ void create_command_buffers(GROEI_context *context) {
   context->command_buffer_count = context->max_frames_in_flight;
   context->command_buffers = (VkCommandBuffer*)malloc(sizeof(VkCommandBuffer) * context->max_frames_in_flight);
 
-  VkCommandBufferAllocateInfo alloc_info = {};
+  VkCommandBufferAllocateInfo alloc_info = {0};
   alloc_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
   alloc_info.commandPool = context->command_pool;
   alloc_info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
@@ -23,7 +23,7 @@ void record_command_buffer(GROEI_context *context,
                            vertices vertex_data,
                            VkCommandBuffer command_buffer,
                            u32 image_index) {
-  VkCommandBufferBeginInfo begin_info = {};
+  VkCommandBufferBeginInfo begin_info = {0};
   begin_info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   begin_info.flags = 0; // Optional
   begin_info.pInheritanceInfo = NULL; // Optional
@@ -33,7 +33,7 @@ void record_command_buffer(GROEI_context *context,
     exit(GROEI_ERROR_COMMAND_BUFFER_RECORD_CODE);
   }
 
-  VkRenderPassBeginInfo renderPass_info = {};
+  VkRenderPassBeginInfo renderPass_info = {0};
   renderPass_info.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
   renderPass_info.renderPass = context->render_pass;
   renderPass_info.framebuffer = context->swap_chain_frame_buffers[image_index];

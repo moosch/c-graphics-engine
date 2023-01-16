@@ -1,9 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-#include "context.h"
+#include "swap_chain.h"
 #include "queue_families.h"
 #include "image_views.h"
 #include "frame_buffer.h"

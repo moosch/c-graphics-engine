@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "../definitions.h"
 #include "frame_buffer.h"
+#include "../definitions.h"
 #include "types.h"
 
 void create_frame_buffer(GROEI_context *context) {
@@ -10,7 +10,7 @@ void create_frame_buffer(GROEI_context *context) {
   for (u32 i = 0; i < context->swap_chain_image_count; i++) {
     VkImageView attachments[] = { context->swap_chain_image_views[i] };
 
-    VkFramebufferCreateInfo frame_buffer_info = {};
+    VkFramebufferCreateInfo frame_buffer_info = {0};
     frame_buffer_info.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     frame_buffer_info.renderPass = context->render_pass;
     frame_buffer_info.attachmentCount = 1;

@@ -8,10 +8,10 @@ void setup_synchronization(GROEI_context *context) {
   context->render_finished_semaphores = (VkSemaphore*)malloc(sizeof(VkSemaphore) * context->max_frames_in_flight);
   context->in_flight_fences = (VkFence*)malloc(sizeof(VkFence) * context->max_frames_in_flight);
 
-  VkSemaphoreCreateInfo semaphoreInfo = {};
+  VkSemaphoreCreateInfo semaphoreInfo = {0};
   semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
-  VkFenceCreateInfo fenceInfo = {};
+  VkFenceCreateInfo fenceInfo = {0};
   fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
   fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 

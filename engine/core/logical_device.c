@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-#include "context.h"
+#include "logical_device.h"
 #include "queue_families.h"
 
 void get_family_device_queues(VkDeviceQueueCreateInfo *queues, queue_family_indices indices);

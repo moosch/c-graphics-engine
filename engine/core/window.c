@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "context.h"
+#include "window.h"
 
 void on_frame_buffer_resize(GLFWwindow *window, int width, int height);
 
@@ -31,5 +31,5 @@ void create_window(const char *title, int width, int height, GROEI_context *cont
 }
 
 void on_frame_buffer_resize(GLFWwindow *window, int width, int height) {
-  printf("Window resized...handle later\n");
+  printf("Window resized: %d x %d\n", width, height);
 }

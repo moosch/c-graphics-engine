@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+#include "graphics_pipeline.h"
 #include "../definitions.h"
 #include "../platform/system.h"
-#include "graphics_pipeline.h"
 #include "types.h"
 
 void create_shader_module(VkDevice device, VkShaderModule *shader_module, file_info *file);
@@ -159,7 +159,7 @@ void create_graphics_pipeline(GROEI_context *context,
     exit(GROEI_ERROR_GRAPHICS_PIPELINE_LAYOUT_CODE);
   }
 
-  VkGraphicsPipelineCreateInfo pipeline_info = {};
+  VkGraphicsPipelineCreateInfo pipeline_info = {0};
   pipeline_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
   pipeline_info.stageCount = 2;
   pipeline_info.flags = 0;

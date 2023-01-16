@@ -26,7 +26,7 @@ void draw_frame(GROEI_context *context, vertices vertices_data) {
   vkResetCommandBuffer(context->command_buffers[context->current_frame], 0);
   record_command_buffer(context, vertices_data, context->command_buffers[context->current_frame], image_index);
 
-  VkSubmitInfo submit_info = {};
+  VkSubmitInfo submit_info = {0};
   submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
   VkSemaphore wait_semaphores[] = { context->image_available_semaphores[context->current_frame] };
@@ -47,7 +47,7 @@ void draw_frame(GROEI_context *context, vertices vertices_data) {
     exit(GROEI_ERROR_RENDERER_CODE);
   }
 
-  VkPresentInfoKHR present_info = {};
+  VkPresentInfoKHR present_info = {0};
   present_info.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 
   present_info.waitSemaphoreCount = 1;
