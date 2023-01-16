@@ -6,4 +6,8 @@ swap_chain_support_details query_swap_chain_support(VkPhysicalDevice device, VkS
 
 void create_swap_chain(GROEI_context *context);
 
+void cleanup_swap_chain(GROEI_context *context);
+
+void recreate_swap_chain(GROEI_context *context);
+
 #endif

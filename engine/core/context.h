@@ -1,10 +1,9 @@
-#ifndef _C_GROEI_CONTEXT_H_
-#define _C_GROEI_CONTEXT_H_
+#ifndef _GROEI_CONTEXT_H_
+#define _GROEI_CONTEXT_H_
 
 #include <stdbool.h>
-/* #define GLFW_INCLUDE_VULKAN */
+#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <vulkan/vulkan.h>
 #include "../definitions.h"
 
 typedef struct swap_chain_support_details {
@@ -50,20 +49,22 @@ typedef struct GROEI_context {
   VkRenderPass render_pass;
   VkPipelineLayout pipeline_layout;
   VkPipeline graphics_pipeline;
-  VkFramebuffer *swap_chain_framebuffers;
+  VkFramebuffer *swap_chain_frame_buffers;
   u8 max_frames_in_flight;
   VkCommandPool command_pool;
   VkCommandBuffer *command_buffers;
+  u32 command_buffer_count;
   VkSemaphore *image_available_semaphores;
   VkSemaphore *render_finished_semaphores;
   VkFence *in_flight_fences;
-  u32 vertices_count;
   VkBuffer vertex_buffer;
   VkDeviceMemory vertex_buffer_memory;
   VkDebugUtilsMessengerEXT debug_messenger;
   bool validation_layers_enabled;
   u32 validation_layer_count;
   const char* const *validation_layers;
+  bool frame_buffer_resized;
+  u32 current_frame;
 } GROEI_context;
 
 #endif

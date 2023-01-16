@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 #include "context.h"
 #include "queue_families.h"
+#include "image_views.h"
+#include "frame_buffer.h"
 
 VkSurfaceFormatKHR choose_swap_surface_format(u32 format_count, VkSurfaceFormatKHR *available_formats);
 VkPresentModeKHR choose_swap_present_mode(u32 present_mode_count, VkPresentModeKHR *available_present_modes);
@@ -92,6 +94,39 @@ void create_swap_chain(GROEI_context *context) {
 
   context->swap_chain_image_format = surfaceFormat.format;
   context->swap_chain_extent = extent;
+}
+
+void cleanup_swap_chain(GROEI_context *context) {
+  for (u32 i = 0; i < context->swap_chain_image_count; i++) {
+    vkDestroyFramebuffer(context->device, context->swap_chain_frame_buffers[i], NULL);
+  }
+
+  for (u32 i = 0; i < context->swap_chain_image_count; i++) {
+    vkDestroyImageView(context->device, context->swap_chain_image_views[i], NULL);
+  }
+
+  // TODO(moosch): Move this free into a memory arena
+  free(context->swap_chain_images);
+
+  vkDestroySwapchainKHR(context->device, context->swap_chain, NULL);
+}
+
+void recreate_swap_chain(GROEI_context *context) {
+  int width = 0;
+  int height = 0;
+  glfwGetFramebufferSize(context->window, &width, &height);
+  while (width == 0 || height == 0) {
+    glfwGetFramebufferSize(context->window, &width, &height);
+    glfwWaitEvents();
+  }
+
+  vkDeviceWaitIdle(context->device);
+
+  cleanup_swap_chain(context);
+
+  create_swap_chain(context);
+  create_image_views(context);
+  create_frame_buffer(context);
 }
 
 VkSurfaceFormatKHR choose_swap_surface_format(u32 format_count, VkSurfaceFormatKHR *available_formats) {

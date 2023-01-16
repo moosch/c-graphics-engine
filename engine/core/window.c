@@ -2,19 +2,12 @@
 #include <stdio.h>
 #include "context.h"
 
-/**
-   TODO: This can fire an event to notify of resize in the loop to recreate swapchain.
-   Or it could call a function pointer provided on init.
-*/
-void framebufferResizeCallback(GLFWwindow *window, int width, int height) {
-  // framebufferResized = true;
-  printf("Resized\n");
-}
+void on_frame_buffer_resize(GLFWwindow *window, int width, int height);
 
 void create_window(const char *title, int width, int height, GROEI_context *context) {
   if (!glfwInit()) {
     printf("ERROR: could not initialise window context\n");
-    exit(GROEI_ERROR_INIT_CODE);
+    exit(GROEI_ERROR_WINDOW_CODE);
   }
 
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -22,8 +15,6 @@ void create_window(const char *title, int width, int height, GROEI_context *cont
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
 
   GLFWwindow *window = glfwCreateWindow(width, height, title, NULL, NULL);
-
-  glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
 
   if (window == NULL) {
     glfwTerminate();
@@ -35,4 +26,10 @@ void create_window(const char *title, int width, int height, GROEI_context *cont
   glfwMakeContextCurrent(window);
 
   context->window = window;
+
+  glfwSetFramebufferSizeCallback(context->window, on_frame_buffer_resize);
+}
+
+void on_frame_buffer_resize(GLFWwindow *window, int width, int height) {
+  printf("Window resized...handle later\n");
 }

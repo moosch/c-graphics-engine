@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -xe
+
+# Compile shaders
+/home/moosch/bin/vulkan/1.3.224.1/x86_64/bin/glslc shaders/simple.vert -o shaders/vert.spv
+/home/moosch/bin/vulkan/1.3.224.1/x86_64/bin/glslc shaders/simple.frag -o shaders/frag.spv

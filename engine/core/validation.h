@@ -1,3 +1,6 @@
+#ifndef _GROEI_VALIDATION_H_
+#define _GROEI_VALIDATION_H_
+
 #include <string.h>
 #include "context.h"
 
@@ -28,3 +31,5 @@ bool check_validation_layer_support() {
 
   return true;
 }
+
+#endif
