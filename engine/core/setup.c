@@ -9,6 +9,7 @@
 #include "physical_device.h"
 #include "logical_device.h"
 #include "swap_chain.h"
+#include "image_views.h"
 
 void cleanup_swap_chain(GROEI_context *context);
 
@@ -37,6 +38,8 @@ void engine_setup(GROEI_context *context, const char *title, u32 width, u32 heig
   create_logical_device(context);
 
   create_swap_chain(context);
+
+  create_image_views(context);
 
   // [x] create window
   // [x] setup debug messenger
