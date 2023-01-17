@@ -39,6 +39,17 @@
    }
 */
 
+/* void sierpinski(vertices *vertices_data, */
+/*                 u32 depth, */
+/*                 vec2 left, */
+/*                 vec2 right, */
+/*                 vec2 top) { */
+/*   if (depth <= 0) { */
+
+/*   } */
+/* } */
+
+
 int main(void) {
   printf("Starting engine...\n");
 
@@ -49,6 +60,9 @@ int main(void) {
   // TODO(moosch): this data will be dynamic from the running application.
   // Likely raw data and/or obj files will be patsed and passed into this function.
   vertex vertices_list[] = {
+    /* {{0.0f, -0.5f}, {1.0f, 1.0f, 1.0f}}, */
+    /* {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}}, */
+    /* {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}} */
     {{0.0f, -0.5f}, {1.0f, 1.0f, 1.0f}},
     {{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
     {{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}

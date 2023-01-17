@@ -7,7 +7,7 @@
 #include "../platform/system.h"
 
 void create_shader_module(VkDevice device, VkShaderModule *shader_module, file_info *file);
-void get_binding_descriptions(VkVertexInputBindingDescription *binding_description);
+void get_binding_descriptions(VkVertexInputBindingDescription *binding_descriptions);
 void get_attribute_descriptions(VkVertexInputAttributeDescription *attribute_descriptions);
 
 void create_graphics_pipeline(GROEI_context *context,
@@ -45,14 +45,13 @@ void create_graphics_pipeline(GROEI_context *context,
 
   VkVertexInputBindingDescription binding_descriptions[1];
   get_binding_descriptions(binding_descriptions);
-  /* VkVertexInputAttributeDescription attribute_descriptions[2]; */
-  VkVertexInputAttributeDescription attribute_descriptions[1];
+  VkVertexInputAttributeDescription attribute_descriptions[2];
   get_attribute_descriptions(attribute_descriptions);
 
   VkPipelineVertexInputStateCreateInfo vertex_input_info = {0};
   vertex_input_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
   vertex_input_info.vertexBindingDescriptionCount = 1;
-  vertex_input_info.vertexAttributeDescriptionCount = 1;
+  vertex_input_info.vertexAttributeDescriptionCount = 2;
   vertex_input_info.pVertexBindingDescriptions = binding_descriptions;
   vertex_input_info.pVertexAttributeDescriptions = attribute_descriptions;
 
@@ -201,23 +200,18 @@ void get_attribute_descriptions(VkVertexInputAttributeDescription *attribute_des
   attribute_descriptions[0].binding = 0;
   attribute_descriptions[0].location = 0;
   attribute_descriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
-  attribute_descriptions[0].offset = 0;
+  attribute_descriptions[0].offset = offsetof(vertex, pos);
 
-  /* attribute_descriptions[0] = (VkVertexInputAttributeDescription){0}; */
-  /* attribute_descriptions[0].binding = 0; */
-  /* attribute_descriptions[0].location = 0; */
-  /* attribute_descriptions[0].format = VK_FORMAT_R32G32_SFLOAT; */
-  /* attribute_descriptions[0].offset = offsetof(vertex, pos); */
-
-  /* attribute_descriptions[1] = (VkVertexInputAttributeDescription){0}; */
-  /* attribute_descriptions[1].binding = 0; */
-  /* attribute_descriptions[1].location = 1; */
-  /* attribute_descriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT; */
-  /* attribute_descriptions[1].offset = offsetof(vertex, color); */
+  attribute_descriptions[1] = (VkVertexInputAttributeDescription){0};
+  attribute_descriptions[1].binding = 0;
+  attribute_descriptions[1].location = 1;
+  attribute_descriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
+  attribute_descriptions[1].offset = offsetof(vertex, color);
 }
 
-void get_binding_description(VkVertexInputBindingDescription *binding_description) {
-  binding_description->binding = 0;
-  binding_description->stride = sizeof(vertex);
-  binding_description->inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+void get_binding_descriptions(VkVertexInputBindingDescription *binding_descriptions) {
+  binding_descriptions[0] = (VkVertexInputBindingDescription){0};
+  binding_descriptions[0].binding = 0;
+  binding_descriptions[0].stride = sizeof(vertex);
+  binding_descriptions[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 }
