@@ -6,7 +6,7 @@ void on_frame_buffer_resize(GLFWwindow *window, int width, int height);
 
 void create_window(const char *title, int width, int height, GROEI_context *context) {
   if (!glfwInit()) {
-    printf("ERROR: could not initialise window context\n");
+    GROEI_ERROR("ERROR: could not initialise window context");
     exit(GROEI_ERROR_WINDOW_CODE);
   }
 
@@ -27,9 +27,21 @@ void create_window(const char *title, int width, int height, GROEI_context *cont
 
   context->window = window;
 
+  glfwSetWindowUserPointer(context->window, context);
   glfwSetFramebufferSizeCallback(context->window, on_frame_buffer_resize);
 }
 
+bool was_window_resized(GLFWwindow *window) {
+  GROEI_context *context = glfwGetWindowUserPointer(window);
+  return context->frame_buffer_resized;
+}
+void reset_window_resized(GROEI_context *context) {
+  context->frame_buffer_resized = false;
+}
+
 void on_frame_buffer_resize(GLFWwindow *window, int width, int height) {
-  printf("Window resized: %d x %d\n", width, height);
+  GROEI_context *context = glfwGetWindowUserPointer(window);
+  context->frame_buffer_resized = true;
+  context->window_width = width;
+  context->window_height = height;
 }

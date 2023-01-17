@@ -32,6 +32,7 @@ typedef struct GROEI_context {
   GLFWwindow *window;
   u32 window_width;
   u32 window_height;
+  bool frame_buffer_resized;
   // TODO: Thest Vulkan specific things could be behind a simpler API
   // A lot of these will be moved
   VkInstance instance;
@@ -65,7 +66,6 @@ typedef struct GROEI_context {
   bool validation_layers_enabled;
   u32 validation_layer_count;
   const char* const *validation_layers;
-  bool frame_buffer_resized;
   u32 current_frame;
 } GROEI_context;
 

@@ -4,7 +4,7 @@
 
 swap_chain_support_details query_swap_chain_support(VkPhysicalDevice device, VkSurfaceKHR surface);
 
-void create_swap_chain(GROEI_context *context);
+void create_swap_chain(GROEI_context *context, VkSwapchainKHR old_swap_chain);
 
 void cleanup_swap_chain(GROEI_context *context);
 

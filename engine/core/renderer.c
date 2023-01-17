@@ -3,6 +3,7 @@
 #include "renderer.h"
 #include "swap_chain.h"
 #include "command_buffers.h"
+#include "window.h"
 
 void draw_frame(GROEI_context *context, vertices *vertices_data) {
   vkWaitForFences(context->device, 1, &context->in_flight_fences[context->current_frame], VK_TRUE, UINT64_MAX);
@@ -16,7 +17,7 @@ void draw_frame(GROEI_context *context, vertices *vertices_data) {
     recreate_swap_chain(context);
     return;
   } else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-    printf("Failed to acquire swap chain image!\n");
+    GROEI_ERROR("Failed to acquire swap chain image!");
     exit(GROEI_ERROR_RENDERER_CODE);
   }
 
@@ -43,7 +44,7 @@ void draw_frame(GROEI_context *context, vertices *vertices_data) {
   submit_info.pSignalSemaphores = signal_semaphores;
 
   if (vkQueueSubmit(context->graphics_queue, 1, &submit_info, context->in_flight_fences[context->current_frame]) != VK_SUCCESS) {
-    printf("Failed to submit draw command buffer!\n");
+    GROEI_ERROR("Failed to submit draw command buffer!");
     exit(GROEI_ERROR_RENDERER_CODE);
   }
 
@@ -62,11 +63,11 @@ void draw_frame(GROEI_context *context, vertices *vertices_data) {
 
   VkResult queue_result = vkQueuePresentKHR(context->present_queue, &present_info);
 
-  if (queue_result == VK_ERROR_OUT_OF_DATE_KHR || queue_result == VK_SUBOPTIMAL_KHR || context->frame_buffer_resized) {
-    context->frame_buffer_resized = false;
+  if (queue_result == VK_ERROR_OUT_OF_DATE_KHR || queue_result == VK_SUBOPTIMAL_KHR || was_window_resized(context->window)) {
+    reset_window_resized(context);
     recreate_swap_chain(context);
   } else if (queue_result != VK_SUCCESS) {
-    printf("Failed to present swap chain image!\n");
+    GROEI_ERROR("Failed to present swap chain image!");
     exit(GROEI_ERROR_RENDERER_CODE);
   }
 

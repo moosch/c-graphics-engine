@@ -53,7 +53,7 @@ void engine_setup(GROEI_context *context,
   create_logical_device(context);
   printf("Logical Device created\n");
 
-  create_swap_chain(context);
+  create_swap_chain(context, NULL);
   printf("Swap Chain created\n");
 
   create_image_views(context);

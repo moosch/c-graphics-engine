@@ -37,7 +37,7 @@ swap_chain_support_details query_swap_chain_support(VkPhysicalDevice device, VkS
   return details;
 }
 
-void create_swap_chain(GROEI_context *context) {
+void create_swap_chain(GROEI_context *context, VkSwapchainKHR old_swap_chain) {
   swap_chain_support_details swap_chain_support = query_swap_chain_support(context->gpu.device, context->surface);
 
   VkSurfaceFormatKHR surfaceFormat = choose_swap_surface_format(swap_chain_support.format_count, swap_chain_support.formats);
@@ -73,11 +73,16 @@ void create_swap_chain(GROEI_context *context) {
     create_info.pQueueFamilyIndices = NULL; // Optional
   }
 
+  VkSwapchainKHR oldSwapchain = NULL;
+  if (old_swap_chain != NULL) {
+    oldSwapchain = old_swap_chain;
+  }
+
   create_info.preTransform = swap_chain_support.capabilities.currentTransform;
   create_info.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
   create_info.presentMode = present_mode;
   create_info.clipped = VK_TRUE;
-  create_info.oldSwapchain = VK_NULL_HANDLE;
+  create_info.oldSwapchain = oldSwapchain;
 
   if (vkCreateSwapchainKHR(context->device, &create_info, NULL, &context->swap_chain) != VK_SUCCESS) {
     printf("Failed to create Swap Chain!\n");
@@ -122,7 +127,7 @@ void recreate_swap_chain(GROEI_context *context) {
 
   cleanup_swap_chain(context);
 
-  create_swap_chain(context);
+  create_swap_chain(context, NULL);
   create_image_views(context);
   create_frame_buffer(context);
 }
