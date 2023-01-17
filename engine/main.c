@@ -69,12 +69,12 @@ int main(void) {
                window_height,
                vertex_shader_path,
                fragment_shader_path,
-               vertices_data);
+               &vertices_data);
 
   while (!glfwWindowShouldClose(context.window)) {
     glfwPollEvents();
 
-    on_update(&context, vertices_data);
+    on_update(&context, &vertices_data);
   }
 
   engine_teardown(&context);

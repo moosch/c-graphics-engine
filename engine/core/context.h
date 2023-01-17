@@ -5,6 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include "../definitions.h"
+#include "../logger/logger.h"
 
 typedef struct swap_chain_support_details {
   VkSurfaceCapabilitiesKHR capabilities;

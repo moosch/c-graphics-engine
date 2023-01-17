@@ -3,6 +3,6 @@
 #include "context.h"
 #include "types.h"
 
-void draw_frame(GROEI_context *context, vertices vertices_data);
+void draw_frame(GROEI_context *context, vertices *vertices_data);
 
 #endif

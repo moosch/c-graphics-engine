@@ -4,7 +4,7 @@
 #include "swap_chain.h"
 #include "command_buffers.h"
 
-void draw_frame(GROEI_context *context, vertices vertices_data) {
+void draw_frame(GROEI_context *context, vertices *vertices_data) {
   vkWaitForFences(context->device, 1, &context->in_flight_fences[context->current_frame], VK_TRUE, UINT64_MAX);
 
   vkResetFences(context->device, 1, &context->in_flight_fences[context->current_frame]);
@@ -24,7 +24,7 @@ void draw_frame(GROEI_context *context, vertices vertices_data) {
   vkResetFences(context->device, 1, &context->in_flight_fences[context->current_frame]);
 
   vkResetCommandBuffer(context->command_buffers[context->current_frame], 0);
-  record_command_buffer(context, vertices_data, context->command_buffers[context->current_frame], image_index);
+  record_command_buffer(context, *vertices_data, context->command_buffers[context->current_frame], image_index);
 
   VkSubmitInfo submit_info = {0};
   submit_info.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;

@@ -3,6 +3,6 @@
 #include "context.h"
 #include "types.h"
 
-void create_vertex_buffer(GROEI_context *context, vertices vertices_data);
+void create_vertex_buffers(GROEI_context *context, vertices *vertices_data);
 
 #endif

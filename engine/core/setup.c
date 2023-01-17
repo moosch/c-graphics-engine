@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 #include "setup.h"
 #include "window.h"
 #include "debug.h"
@@ -25,7 +23,7 @@ void engine_setup(GROEI_context *context,
                   u32 width, u32 height,
                   const char *vertext_shader_path,
                   const char *fragment_shader_path,
-                  vertices vertices_data) {
+                  vertices *vertices_data) {
   context->window_width = width;
   context->window_height = height;
 
@@ -73,7 +71,7 @@ void engine_setup(GROEI_context *context,
   create_command_pool(context);
   printf("Command Pool created\n");
 
-  create_vertex_buffer(context, vertices_data);
+  create_vertex_buffers(context, vertices_data);
   printf("Vertex Buffer created\n");
 
   create_command_buffers(context);
@@ -85,7 +83,7 @@ void engine_setup(GROEI_context *context,
   printf("Engine setup successfully\n");
 }
 
-void on_update(GROEI_context *context, vertices vertices_data) {
+void on_update(GROEI_context *context, vertices *vertices_data) {
   draw_frame(context, vertices_data);
 }
 
