@@ -5,10 +5,9 @@
 #include "graphics_pipeline.h"
 #include "../definitions.h"
 #include "../platform/system.h"
-#include "types.h"
 
 void create_shader_module(VkDevice device, VkShaderModule *shader_module, file_info *file);
-void get_binding_description(VkVertexInputBindingDescription *binding_description);
+void get_binding_descriptions(VkVertexInputBindingDescription *binding_description);
 void get_attribute_descriptions(VkVertexInputAttributeDescription *attribute_descriptions);
 
 void create_graphics_pipeline(GROEI_context *context,
@@ -39,27 +38,22 @@ void create_graphics_pipeline(GROEI_context *context,
     .pName = "main",
   };
 
-  VkPipelineShaderStageCreateInfo shaderStages[] = {
+  VkPipelineShaderStageCreateInfo shader_stages[] = {
     vertShader_stage_info,
     frag_shader_stage_info,
   };
 
-  VkVertexInputBindingDescription binding_description = {0};
-  get_binding_description(&binding_description);
-  VkVertexInputAttributeDescription attribute_descriptions[2];
+  VkVertexInputBindingDescription binding_descriptions[1];
+  get_binding_descriptions(binding_descriptions);
+  /* VkVertexInputAttributeDescription attribute_descriptions[2]; */
+  VkVertexInputAttributeDescription attribute_descriptions[1];
   get_attribute_descriptions(attribute_descriptions);
 
-  VkPipelineVertexInputStateCreateInfo vertex_input_info = {
-    .sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO,
-    .vertexBindingDescriptionCount = 0,
-    .pVertexBindingDescriptions = NULL, // Optional
-    .vertexAttributeDescriptionCount = 0,
-    .pVertexAttributeDescriptions = NULL // Optional
-  };
-
+  VkPipelineVertexInputStateCreateInfo vertex_input_info = {0};
+  vertex_input_info.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
   vertex_input_info.vertexBindingDescriptionCount = 1;
-  vertex_input_info.vertexAttributeDescriptionCount = 2;
-  vertex_input_info.pVertexBindingDescriptions = &binding_description;
+  vertex_input_info.vertexAttributeDescriptionCount = 1;
+  vertex_input_info.pVertexBindingDescriptions = binding_descriptions;
   vertex_input_info.pVertexAttributeDescriptions = attribute_descriptions;
 
   u32 dynamic_states_size = 2;
@@ -163,7 +157,7 @@ void create_graphics_pipeline(GROEI_context *context,
   pipeline_info.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
   pipeline_info.stageCount = 2;
   pipeline_info.flags = 0;
-  pipeline_info.pStages = shaderStages;
+  pipeline_info.pStages = shader_stages;
   pipeline_info.pVertexInputState = &vertex_input_info;
   pipeline_info.pInputAssemblyState = &input_assembly;
   pipeline_info.pViewportState = &viewport_state;
@@ -207,13 +201,19 @@ void get_attribute_descriptions(VkVertexInputAttributeDescription *attribute_des
   attribute_descriptions[0].binding = 0;
   attribute_descriptions[0].location = 0;
   attribute_descriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
-  attribute_descriptions[0].offset = offsetof(vertex, pos);
+  attribute_descriptions[0].offset = 0;
 
-  attribute_descriptions[1] = (VkVertexInputAttributeDescription){0};
-  attribute_descriptions[1].binding = 0;
-  attribute_descriptions[1].location = 1;
-  attribute_descriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-  attribute_descriptions[1].offset = offsetof(vertex, color);
+  /* attribute_descriptions[0] = (VkVertexInputAttributeDescription){0}; */
+  /* attribute_descriptions[0].binding = 0; */
+  /* attribute_descriptions[0].location = 0; */
+  /* attribute_descriptions[0].format = VK_FORMAT_R32G32_SFLOAT; */
+  /* attribute_descriptions[0].offset = offsetof(vertex, pos); */
+
+  /* attribute_descriptions[1] = (VkVertexInputAttributeDescription){0}; */
+  /* attribute_descriptions[1].binding = 0; */
+  /* attribute_descriptions[1].location = 1; */
+  /* attribute_descriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT; */
+  /* attribute_descriptions[1].offset = offsetof(vertex, color); */
 }
 
 void get_binding_description(VkVertexInputBindingDescription *binding_description) {

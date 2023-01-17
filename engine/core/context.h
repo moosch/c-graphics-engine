@@ -59,6 +59,7 @@ typedef struct GROEI_context {
   VkSemaphore *render_finished_semaphores;
   VkFence *in_flight_fences;
   VkBuffer vertex_buffer;
+  u32 vertex_buffer_size;
   VkDeviceMemory vertex_buffer_memory;
   VkDebugUtilsMessengerEXT debug_messenger;
   bool validation_layers_enabled;
